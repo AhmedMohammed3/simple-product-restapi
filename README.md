@@ -13,7 +13,6 @@
 - [Exception Handling](#exception-handling)
 - [Notes](#notes)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Project Description
 
