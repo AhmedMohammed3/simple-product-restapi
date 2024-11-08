@@ -33,25 +33,13 @@ public class ProductService {
 
         Product savedProduct = productRepository.save(product);
 
-        return new ProductResponseDTO(
-                savedProduct.getId(),
-                savedProduct.getName(),
-                savedProduct.getDescription(),
-                savedProduct.getPrice(),
-                savedProduct.getStockQuantity()
-        );
+        return new ProductResponseDTO(savedProduct);
     }
 
     public ProductResponseDTO getProductById(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found"));
-        return new ProductResponseDTO(
-                product.getId(),
-                product.getName(),
-                product.getDescription(),
-                product.getPrice(),
-                product.getStockQuantity()
-        );
+        return new ProductResponseDTO(product);
     }
 
     public Page<ProductResponseDTO> getAllProducts(int page, int size, String sortBy, String sortDirection) {
@@ -60,13 +48,7 @@ public class ProductService {
         }
 
         return productRepository.findAll(PageRequest.of(page, size, Sort.Direction.fromString(sortDirection), sortBy))
-                .map(product -> new ProductResponseDTO(
-                product.getId(),
-                product.getName(),
-                product.getDescription(),
-                product.getPrice(),
-                product.getStockQuantity()
-        ));
+                .map(product -> new ProductResponseDTO(product));
     }
 
     public ProductResponseDTO updateProduct(Long id, ProductDTO productDTO) {
@@ -78,13 +60,7 @@ public class ProductService {
         product.setStockQuantity(productDTO.getStockQuantity());
 
         Product updatedProduct = productRepository.save(product);
-        return new ProductResponseDTO(
-                updatedProduct.getId(),
-                updatedProduct.getName(),
-                updatedProduct.getDescription(),
-                updatedProduct.getPrice(),
-                updatedProduct.getStockQuantity()
-        );
+        return new ProductResponseDTO(updatedProduct);
     }
 
     public void deleteProduct(Long id) {
